@@ -11,7 +11,7 @@ from datetime import datetime, timedelta
 load_dotenv()
 
 # Get MongoDB URI from environment
-MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017/")
+MONGO_URI = "mongodb://localhost:27017/"
 DB_NAME = "trendradar"
 COLLECTION_NAME = "reddit_posts"
 
@@ -34,7 +34,7 @@ class MongoDB:
                 cls._instance.collection.create_index([("full_text", "text")])  # Text index for search
                 
                 print("✅ Connected to MongoDB successfully")
-            except errors.ConnectionError as e:
+            except errors.ConnectionFailure as e:
                 print(f"❌ Failed to connect to MongoDB: {e}")
                 cls._instance = None
         return cls._instance
